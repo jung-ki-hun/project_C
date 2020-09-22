@@ -6,7 +6,11 @@
     --size-header-img-height: 4.5em; 
     --padding-header: 2em; 
     --font-header: 1.3em;
+<<<<<<< HEAD
     --color-background-menu:#735F58;
+=======
+    --color-background-menu:#0f4c81;
+>>>>>>> b2405f811638f1e811b8b000fee36b53aca5eed2
     --color-font-default-menu:rgba(255, 255, 255, 0.75);
     --color-font-hover-menu:#fff;
     --duration-animation-header: 0.2s;
@@ -16,7 +20,11 @@
     --font-nav-sub:1.5em;
     --color-font-default-nav:rgba(255, 255, 255, 0.75);
     --color-font-hover-nav:#fff;
+<<<<<<< HEAD
     --color-background-nav:#26c6da;
+=======
+    --color-background-nav:#81b9bf;
+>>>>>>> b2405f811638f1e811b8b000fee36b53aca5eed2
     --color-border-nav: #cfcfcf;
     --padding-nav:1.5em;
     --duration-animation-nav: 0.3s;
@@ -26,7 +34,11 @@
     --size-height-action-bar:2.5em;
     --size-width-i-action-bar:2em;
     --font-content-action-bar:1.1em;
+<<<<<<< HEAD
     --color-background-action-bar:#81b9bf;
+=======
+    --color-background-action-bar:#26c6da;
+>>>>>>> b2405f811638f1e811b8b000fee36b53aca5eed2
     --color-font-action-bar:#e5ffff;
     --color-angle-action-bar:#ffffff;
     --margin-action-bar:1.5em;
@@ -37,7 +49,11 @@
     /* banner 색상 크기 제어 */
     --size-height-banner:35em;
     --size-height-inner-banner:80%;
+<<<<<<< HEAD
     --color-background-banner:#A6988D;
+=======
+    --color-background-banner:#3498db;
+>>>>>>> b2405f811638f1e811b8b000fee36b53aca5eed2
     --color-font-banner:#ffffff;
     --color-border-banner:#ffffff;
     --color-change-button:#03a9f4;
@@ -69,9 +85,15 @@
     --color-border-button-post:#cfcfcf;
     --color-change-background-post:rgba(255,255,255,0.5);
     --color-change-background-b-post:rgba(0,0,0,0.1);
+<<<<<<< HEAD
     --color-style-one-post:#F29F05;
     --color-style-two-post:#BFACA4;
     --color-style-three-post:#8C6A56;
+=======
+    --color-style-one-post:#1abc9c;
+    --color-style-two-post:#3498D8;
+    --color-style-three-post:#9B59B6;
+>>>>>>> b2405f811638f1e811b8b000fee36b53aca5eed2
     --color-border-white-post:#efefef;
     --duration-animation-button-post:0.2s;
 
