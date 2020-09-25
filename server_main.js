@@ -1,16 +1,20 @@
-var express = require("express");
-var http = require('http'); // node 내장 모듈 불러옴 
-var static = require('serve-static');// 특정 폴더의 파일들을특정 패스로 접근할 수 있도록 만들어주는 외장 모듈
-var path = require('path');//경로
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-var ip ="203.241.228.134";//서버주소
-var app = express();
+//************************** */
+//****** 캡스톤 디자인 서버** */
+//************************* */
+
+const express = require("express");
+const http = require('http'); // node 내장 모듈 불러옴 
+const static = require('serve-static');// 특정 폴더의 파일들을특정 패스로 접근할 수 있도록 만들어주는 외장 모듈
+const path = require('path');//경로
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const ip ="203.241.228.134";//서버주소
+const app = express();
 
 var errorHandler = require('errorhandler');
 var expressErrorHandler =require('express-error-handler');
 
-var expressSession = require('express-session');//세션
+const expressSession = require('express-session');//세션
 
 
 var mongoClient = require('mongodb').MongoClient;
@@ -157,7 +161,8 @@ app.use(errorHandler);//오류
 app.use(function (req, res, next) {
     console.log('첫 미들웨어 메인페이지 응답'+req.ip);
     res.writeHead(200,{"content-Type":'text/html;charset=utf8'});//200 정상응답  
-    res.end('<h1>서버 정상 가동중</h1>');//서버가 오픈되어있다고 
+	res.end('<h1>서버 정상 가동중</h1>');//서버가 오픈되어있다고 
+	
     //res.redirect('http://203.241.228.134:3000/views/index.html');//메인페이지로 가는것
     
     next();
