@@ -8,5 +8,11 @@ var path = require('path');//경로
 var bodyParser = require('body-parser');
 
 var app = express();
+<<<<<<< HEAD
 var user1 = require('./user.json');
 console.log(user1); 
+=======
+
+
+/* hnjhgjghj*/
+>>>>>>> f65025f19cbb758e172bdeecc7d269088b320a02
