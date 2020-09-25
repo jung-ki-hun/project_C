@@ -4,7 +4,7 @@ var static = require('serve-static');// 특정 폴더의 파일들을특정 패�
 var path = require('path');//경로
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
-var ip ="203.241.228.134";//서버주소
+var ip ="203.241.228.131";//서버주소
 var app = express();
 
 var errorHandler = require('errorhandler');
