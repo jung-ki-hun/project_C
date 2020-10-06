@@ -1,17 +1,8 @@
-<<<<<<< HEAD
 //************************** */
 //****** 캡스톤 디자인 서버** */
 //************************* */
 
-const express = require("express");
-const http = require('http'); // node 내장 모듈 불러옴 
-const static = require('serve-static');// 특정 폴더의 파일들을특정 패스로 접근할 수 있도록 만들어주는 외장 모듈
-const path = require('path');//경로
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const ip ="203.241.228.134";//서버주소
-const app = express();
-=======
+
 var express = require("express");
 var http = require('http'); // node 내장 모듈 불러옴 
 var static = require('serve-static');// 특정 폴더의 파일들을특정 패스로 접근할 수 있도록 만들어주는 외장 모듈
@@ -20,7 +11,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var ip ="203.241.228.131";//서버주소
 var app = express();
->>>>>>> f65025f19cbb758e172bdeecc7d269088b320a02
+
 
 var errorHandler = require('errorhandler');
 var expressErrorHandler =require('express-error-handler');
