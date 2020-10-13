@@ -17,19 +17,26 @@ var expressErrorHandler =require('express-error-handler');
 var expressSession = require('express-session');//세션
 
 
-var mongoClient = require('mongodb').MongoClient;
 
-var database;//데이터 베이스 
-function connectDB(){
-	var databaseURL ="mongodb://";
-	mongoClient.connect(databaseURL, function(err,cluster){
-		if(err){
-			console.log('db connect error');
-		}
-		console.log('db was connected : '+ databaseURL);
+var MongoClient = require('mongodb').MongoClient;
+var app = express();
+var database;
+function connectDB() {
+    var databaseUrl = 'mongodb://localhost:27017/local';
 
-		database =cluster.db('test');
-	})
+    MongoClient.connect(databaseUrl, {useNewUrlParser: true,
+        useUnifiedTopology: true}, function(err, db) {
+        if (err) {
+            console.log('데이터베이스 연결 시 에러 발생함.');
+            return;
+}
+
+        console.log('데이터베이스에 연결됨 : ' + databaseUrl);
+        database = db;
+        database = db.db('local');
+
+    });
+
 }
 
 
@@ -48,17 +55,11 @@ app.use(expressSession({
     //store:db 관련 저장소 운영
 }));// 저장할 정보에 대해서 어떻게 할지..
 
-var router = express.Router();
-/*
-// router.route('/process/login').post(function(req,res){
-//     console.log("/process/login 라우팅 함수에서 받음.");
 
-//     var paramId = req.body.id ||req.query.id;
-//     var paramPassword = req.body.password || req.query.password;
-//     res.writeHead(200,{"content-Type":'text/html;charset=utf8'});//200 정상응답  
-//     res.write("<p>"+paramId+paramPassword+"</p>");
-//     res.end();
-// })*/
+
+// 여기부터 라우터
+var router = express.Router();
+
 
 // 로그인 라우팅 함수 - 로그인 후 세션 저장함
 router.route('/process/login').post(function(req, res) {
@@ -66,6 +67,10 @@ router.route('/process/login').post(function(req, res) {
 
 	var paramId = req.body.id || req.query.id;
 	var paramPassword = req.body.password || req.query.password;
+    console.log('요첨 파라미터 : ' + paramId + ', ' + paramPassword);
+
+
+
 	
 	if (req.session.user) {
 		// 이미 로그인된 상태
@@ -79,17 +84,7 @@ router.route('/process/login').post(function(req, res) {
 			name: '소녀시대',
 			authorized: true
 		};//db 만들어서 가져 와야 될 코드
-		/*
-		res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-		res.write('<h1>로그인 성공</h1>');
-		res.write('<div><p>Param id : ' + paramId + '</p></div>');
-		res.write('<div><p>Param password : ' + paramPassword + '</p></div>');
-		res.write("<br><br><a href='/process/product'>상품 페이지로 이동하기</a>");
-		res.end();*/
 		
-		// 홈페이지창에 표시하는 기능 추후 수정
-		// 수정 예정안
-		// 서버 콘솔창에 표시 -> 접속자 ip, 식별자, 성공여부
 	}
 });
 // 로그아웃 라우팅 함수 - 로그아웃 후 세션 삭제함
