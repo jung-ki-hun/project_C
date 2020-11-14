@@ -2,14 +2,15 @@
 //****** 캡스톤 디자인 서버** */
 //************************* */
 
-const express = require("express");
+var express = require("express");
 const http = require('http'); // node 내장 모듈 불러옴 
 const static = require('serve-static');// 특정 폴더의 파일들을특정 패스로 접근할 수 있도록 만들어주는 외장 모듈
 const path = require('path');//경로
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const ip ="203.241.228.134";//서버주소
-const app = express();
+
+var app = express();
 
 var errorHandler = require('errorhandler');
 var expressErrorHandler =require('express-error-handler');
@@ -19,7 +20,7 @@ var expressSession = require('express-session');//세션
 
 
 var MongoClient = require('mongodb').MongoClient;
-var app = express();
+
 var database;
 function connectDB() {
     var databaseUrl = 'mongodb://localhost:27017/local';
@@ -38,7 +39,6 @@ function connectDB() {
     });
 
 }
-
 
 app.set('port', process.env.PORT || 3000);//3000번 포트 개방
 app.use('/views', static(path.join(__dirname, 'views')));//--dirmane : js 파일이 있는 폴더경로
@@ -146,7 +146,7 @@ app.all('*',function(req,res){
 */
 var errorHandler = expressErrorHandler({
 	static: {
-		'404':'./views/error/404.html;'
+		'404':'/views/error/404.html;'
 	}
 });
 app.use(expressErrorHandler.httpError(404));
