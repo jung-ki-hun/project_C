@@ -331,6 +331,3 @@ http.createServer(app).listen(app.get('port'),ip, function () {
 	connectDB();
 	
 }); 
-http.createServer(app).listen(8001,ip,()=>{
-	console.log('ejs 서버를 실행함 : ' + app.get('port'));	
-});
