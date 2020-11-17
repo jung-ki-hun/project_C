@@ -2,6 +2,7 @@ var express = require("express");
 var http = require('http'); // node 내장 모듈 불러옴 
 var static = require('serve-static');// 특정 폴더의 파일들을특정 패스로 접근할 수 있도록 만들어주는 외장 모듈
 var path = require('path');//경로
+
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var ip ="203.241.228.131";//서버주소
@@ -13,6 +14,7 @@ const expressSession = require('express-session');//세션
 var MongoClient = require('mongodb').MongoClient;
 var app = express();
 var database;
+
 function connectDB() {
     var databaseUrl = 'mongodb://localhost:27017/local';
 
