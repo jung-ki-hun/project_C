@@ -1,7 +1,7 @@
 {
-  "name": "project_node_mega",
+  "name": "project_node_capstron",
   "version": "1.0.0",
-  "description": "",
+  "description": "- pull을 먼저 한 후 push를 한다.\r - -f 명령어를 사용하지 않는다.\r - 커밋 메시지를 양식에 맟춰 표기한다.\r - 주기적으로 작업후 본파일을 수정한다.\r - 해당파일은 게시판의 역활을 주 목적으로 작성되어야 한다.",
   "main": "server_main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,15 +9,28 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
+    "ejs": "^3.1.5",
     "error": "^10.4.0",
     "errorhandler": "^1.5.1",
     "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.0",
     "express-error-handler": "^1.1.0",
     "express-session": "^1.17.1",
-    "mongodb": "^3.6.2",
+    "mongodb": "^3.6.3",
+    "nodemon": "^2.0.6",
     "path": "^0.12.7",
     "serve-static": "^1.14.1"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jung-ki-hun/project_C.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jung-ki-hun/project_C/issues"
+  },
+  "homepage": "https://github.com/jung-ki-hun/project_C#readme"
 }

@@ -1,0 +1,38 @@
+<%- contentFor('HeaderCss') %>
+<link href="public/assets/plugins/fullcalendar/css/fullcalendar.min.css" rel="stylesheet" />
+
+<%- contentFor('breadcrumb') %>
+<div class="row">
+    <div class="col-sm-12">
+       <div class="page-title-box">
+            <div class="btn-group pull-right">
+                <ol class="breadcrumb hide-phone p-0 m-0">
+                    <li class="breadcrumb-item"><a href="#">Admiria</a></li>
+                    <li class="breadcrumb-item active">Calendar</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Calendar</h4>
+        </div>
+    </div>
+</div>
+
+<%- contentFor('body') %>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card m-b-20">
+                            <div class="card-body">
+                                <div id='calendar'></div>
+
+                                <div style='clear:both'></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+<%- contentFor('FooterJs') %>
+<script src="public/assets//plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="public/assets//plugins/moment/moment.js"></script>
+<script src="public/assets/pages/calendar-init.js"></script>
+<script src='public/assets/plugins/fullcalendar/js/fullcalendar.min.js'></script>
+
+<%- contentFor('BottomJs') %>

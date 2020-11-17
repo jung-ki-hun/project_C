@@ -1,3 +1,7 @@
+/******************* */
+/****** start ****** */
+/******************* */
+
 var express = require("express");
 var http = require('http'); // node 내장 모듈 불러옴 
 var static = require('serve-static');// 특정 폴더의 파일들을특정 패스로 접근할 수 있도록 만들어주는 외장 모듈
@@ -5,35 +9,13 @@ var path = require('path');//경로
 
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
-var ip ="203.241.228.131";//서버주소
+var ip ="203.241.228.134";//서버주소
 var errorHandler = require('errorhandler');
 var expressErrorHandler =require('express-error-handler');
 const expressSession = require('express-session');//세션
-
-
-var MongoClient = require('mongodb').MongoClient;
-var app = express();
-var database;
-
-function connectDB() {
-    var databaseUrl = 'mongodb://localhost:27017/local';
-
-    MongoClient.connect(databaseUrl, {useNewUrlParser: true,
-        useUnifiedTopology: true}, function(err, db) {
-        if (err) {
-            console.log('데이터베이스 연결 시 에러 발생함.');
-            return;
-        }
-        
-        console.log('데이터베이스에 연결됨 : ' + databaseUrl);
-        database = db;
-        database = db.db('local');
-
-    });
-}
-
-
+var app  = express();
 app.set('port', process.env.PORT || 3000);//3000번 포트 개방
+app.use('/views2', static(path.join(__dirname, 'views2')));//--dirmane : js 파일이 있는 폴더경로
 app.use('/views', static(path.join(__dirname, 'views')));//--dirmane : js 파일이 있는 폴더경로
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -44,14 +26,56 @@ app.use(cookieParser());
 app.use(expressSession({
 	secret:'my key',
 	resave:true,
-    saveUninitialized:true
-    //store:db 관련 저장소 운영
+	saveUninitialized:true
+	//store:db 관련 저장소 운영
 }));// 저장할 정보에 대해서 어떻게 할지..
+
+
+//**************************/
+//***템플릿 디장인 적용 시점 */
+//**************************/
+
+
+
+
+
+
+/******************* */
+/***** login ******* */
+/******************* */
+var login_state = "login";
+
+
+/******************* */
+/**** database ***** */
+/******************* */
+var MongoClient = require('mongodb').MongoClient;
+var database;
+
+function connectDB() {
+    var databaseUrl = 'mongodb://localhost:27017/local';
+
+    MongoClient.connect(databaseUrl, {useNewUrlParser: true,
+        useUnifiedTopology: true}, function(err, db) {
+        if (err) {
+            console.log('데이터베이스 연결 시 에러 발생함.');
+            return;
+        }	
+        
+        console.log('데이터베이스에 연결됨 : ' + databaseUrl);
+        database = db;
+        database = db.db('local');
+
+    });	
+}	
+
+
 
 
 
 // 여기부터 라우터
 var router = express.Router();
+
 
 
 // 로그인 라우팅 함수 - 로그인 후 세션 저장함
@@ -69,7 +93,7 @@ router.route('/process/login').post(function(req, res) {
 		// 이미 로그인된 상태
 		console.log('이미 로그인되어 상품 페이지로 이동합니다.');
 		
-		res.redirect('/views/index.html');//로그인 되면 보여줄 화면..
+		//res.redirect('/views/index.html');//로그인 되면 보여줄 화면..
 	} else {
 		if (database) {
 			authUser(database, paramId, paramPassword, function(err, docs) {
@@ -114,7 +138,6 @@ router.route('/process/login').post(function(req, res) {
 		// 서버 콘솔창에 표시 -> 접속자 ip, 식별자, 성공여부
 	}
 });
-
 
 
 
@@ -167,7 +190,6 @@ router.route('/process/newacc').get(function(req, res) {
 	}//비로그인 상태
 
 });//로그인 상태일때 접속하게 해야됨!!
-
 
 
 
@@ -293,16 +315,21 @@ app.use(function (req, res, next) {
 	res.end('<h1>서버 정상 가동중</h1>');//서버가 오픈되어있다고 
 	
     res.redirect('http://203.241.228.131:3000/views/index.html');//메인페이지로 가는것
-    
+	console.log(req);
     next();
 });// 서버 정상가동 확인 및 접속자 ip 출력
 
 
 
+/******************* */
+/****create_server** */
+/******************* */
+
+
 
 http.createServer(app).listen(app.get('port'),ip, function () {
 
-	console.log('익스프레스로 웹 서버를 실행함 : ' + app.get('port'));
-	
+	console.log('익스프레스로 웹 서버를 실행함 : ' + app.get('port'));	
 	connectDB();
-});
+	
+}); 

@@ -11,6 +11,6 @@ npm install express-error-handler --save
 npm install express-session
 npm install mongodb --save
 npm install errorhandler --save
-
+npm install error --save
 
 npm install socket.o --save
