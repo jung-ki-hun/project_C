@@ -8,7 +8,7 @@ var static = require('serve-static');// 특정 폴더의 파일들을특정 패�
 var path = require('path');//경로
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
-var ip ="203.241.228.134";//서버주소
+var ip ="192.168.47.1";//서버주소
 var errorHandler = require('errorhandler');
 var expressErrorHandler =require('express-error-handler');
 const expressSession = require('express-session');//세션
@@ -312,7 +312,7 @@ app.use(function (req, res, next) {
     res.writeHead(200,{"content-Type":'text/html;charset=utf8'});//200 정상응답  
 	res.end('<h1>서버 정상 가동중</h1>');//서버가 오픈되어있다고 
 	
-    res.redirect('http://203.241.228.131:3000/views/index.html');//메인페이지로 가는것
+    res.redirect('http:/192.168.47.1/views/index.html');//메인페이지로 가는것
 	console.log(req);
     next();
 });// 서버 정상가동 확인 및 접속자 ip 출력
