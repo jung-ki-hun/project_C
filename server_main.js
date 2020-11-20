@@ -6,9 +6,14 @@ var express = require("express");
 var http = require('http'); // node 내장 모듈 불러옴 
 var static = require('serve-static');// 특정 폴더의 파일들을특정 패스로 접근할 수 있도록 만들어주는 외장 모듈
 var path = require('path');//경로
+
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
+<<<<<<< HEAD
 var ip ="192.168.47.1";//서버주소
+=======
+var ip ="203.241.228.131";//서버주소
+>>>>>>> 795a708f62df796ccfb24fdbc09ba499701c418c
 var errorHandler = require('errorhandler');
 var expressErrorHandler =require('express-error-handler');
 const expressSession = require('express-session');//세션
@@ -48,9 +53,53 @@ var login_state = "login";
 /******************* */
 /**** database ***** */
 /******************* */
+var Mongoose = require('mongoose');
+const { stringify } = require("querystring");
 var MongoClient = require('mongodb').MongoClient;
+
 var database;
+var UserSchema;
+var UserModel;
 function connectDB() {
+	var databaseUrl = 'mongodb://localhost:27017/local';
+	
+	Mongoose.promise = global.promise;
+	Mongoose.connect(databaseUrl, {useNewUrlParser: true,
+        useUnifiedTopology: true}, function(err, db) {
+        if (err) {
+            console.log('데이터베이스 연결 시 에러 발생함.');
+            return;
+        }
+	});
+	
+	database = Mongoose.connection;
+
+	database.on('open', function() {
+		console.log('데이터베이스에 연결됨 : ' + databaseUrl);
+		
+
+		UserSchema = Mongoose.Schema({
+			id: String,
+			name: String,
+			password: String
+		});
+		console.log('UserSchma 정의함.');
+
+		UserModel = Mongoose.model('users', UserSchema);
+		console.log('Usermodel 정의함.');
+
+	});
+
+	database.on('disconnected', function() {
+		console.log('데이터베이스 연결 끊어짐.')
+	});
+
+	database.on('error', console.error.bind(console, 'mongoose 연결 에러.'));
+
+}
+
+
+/*function connectDB() {
     var databaseUrl = 'mongodb://localhost:27017/local';
 
     MongoClient.connect(databaseUrl, {useNewUrlParser: true,
@@ -65,7 +114,7 @@ function connectDB() {
         database = db.db('local');
 
     });	
-}	
+}*/
 
 
 
@@ -111,7 +160,7 @@ router.route('/process/login').post(function(req, res) {
 					
 					res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
 					res.write('<h1>로그인 성공</h1>');
-					res.write('<div><p>Param id : ' + paramId + '</p></div>');
+					res.write('<div><p>사용자 id : ' + paramId + '</p></div>');
 					res.write('<div><p>사용자 이름 : ' + username + '</p></div>');
 					res.write("<br><br><a href='/process/product'>상품 페이지로 이동하기</a>");
 					res.end();
@@ -120,7 +169,7 @@ router.route('/process/login').post(function(req, res) {
 					res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
 					res.write('<h1>로그인  실패</h1>');
 					res.write('<div><p>아이디와 패스워드를 다시 확인하십시오.</p></div>');
-					res.write("<br><br><a href='/views/login.html'>다시 로그인하기</a>");
+					res.write("<br><br><a href='/views/pages-login.html'>다시 로그인하기</a>");
 					res.end();
 				}
 			});
@@ -242,18 +291,16 @@ router.route('/process/adduser').post(function(req, res) {
 app.use('/',router);
 
 var authUser = function (database, id, password, callback) {
-    console.log('사람찾을때쓰는 authUser라는놈 호출됨. : ' + id + ', ' + password);
+	console.log('사람찾을때쓰는 authUser라는놈 호출됨. : ' + id + ', ' + password);
+	
+	UserModel.find({"id":id, "password":password}, function(err, docs)
+	{
+		if (err) {
+			callback(err, null);
+			return;
+		}
 
-    var users = database.collection('users');
-
-    users.find({"id":id, "password":password}).toArray(function(err, docs)
-    {
-        if (err) {
-            callback(err, null);
-            return;
-        }
-
-        if (docs.length > 0) {
+		if (docs.length > 0) {
             console.log('로그인성공');
             callback(null, docs);
         } else {
@@ -261,7 +308,10 @@ var authUser = function (database, id, password, callback) {
             callback(null, null);
         }
 
-    });
+	});
+
+    var users = database.collection('users');
+    
 };
 
 
@@ -275,24 +325,18 @@ var authUser = function (database, id, password, callback) {
 var addUser = function(db, id, password, name, callback) {
 	console.log('addUser 호출됨 : ' + id + ', ' + password + ', ' + name);
 
-	var users = db.collection('users');
+	var user = new UserModel({"id":id, "password":password, "name":name});
 
-	//users.insertMany([{"id":id, "password":password, "name":name, "gender":gender, "userBirthday":userBirthday, "email_1":email_1, "email_2":email_2, "phone":phone, "address":address}], 
-	users.insertMany([{"id":id, "password":password, "name":name}], 
-		function(err, result) {
-		if (err) {
+	user.save(function(err) {
+		if(err){
 			callback(err, null);
 			return;
 		}
 
-		if(result.insertedCount > 0) {
-			console.log('사용자 추가됨 : ' + result.insertedCount);
-			callback(null, result);
-		} else {
-			console.log('추가된 레코드가 없음.');
-			callback(null, null);
-		}
+		console.log('사용자 데이터 추가함.');
+		callback(null, user);
 	});
+
 
 };
 
