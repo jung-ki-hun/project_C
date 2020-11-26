@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="assets/css/main.css" />
     <script defer src="assets/js/css_main.js"></script>
+    <script defer src="assets/js/login.js"></script>
     <title>Clean IoT</title>
 
 </head>
@@ -27,11 +28,16 @@
                 <li class="login">
                     <!------폼태그(1/3)---------------->
 
-                    <form method="post" action="/process/login">
-                    <a href="pages-login.html" >Login</a>
-                    </script>
-                    
-                    </form>
+                   <!-- <form method="post" action="/process/login">
+                    -->
+                    <div id = "login__main_benner"> 
+                        <form method="GET" action="/process/login">
+                            <a href="pages-login.html">Login</a>
+                        </form>    
+                    </div>
+                    <!-- <div id = "logout">
+                        <a href="pages-login.html">Login</a>    
+                    </div> -->
                 </li>
                 <li class="menu-button">Menu</li>
             </ul>

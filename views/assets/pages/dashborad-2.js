@@ -11,7 +11,7 @@
     };
 
 
-    //creates area chart
+    //creates area chart //차트 초기 설정하는 공간 뭐가 뭔지 모르니 일단 놔두자
     Dashboard2.prototype.createAreaChart = function (element, pointSize, lineWidth, data, xkey, ykeys, labels, lineColors) {
         Morris.Area({
             element: element,
@@ -56,7 +56,7 @@
                 barColors: lineColors
             });
         },
-
+        // 데이터 설정하는 구간
         Dashboard2.prototype.init = function () {
 
             //creating area chart
@@ -92,7 +92,7 @@
                 { y: '2014', a: 75,  b: 65},
                 { y: '2015', a: 100, b: 90},
                 { y: '2016', a: 80, b: 65}
-            ];
+            ];// monthly earnings  차트
             this.createStackedChart('morris-bar-stacked', $stckedData, 'y', ['a', 'b'], ['Series A', 'Series B'], ['#47b8c6','#e8e7e7']);
 
             //Peity pie
