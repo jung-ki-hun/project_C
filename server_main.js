@@ -9,10 +9,13 @@ var path = require('path');//경로
 
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
- var ip = "203.241.228.131";//서버주소
+var ip = "203.241.228.131";//서버주소
 
 var errorHandler = require('errorhandler');
 var expressErrorHandler = require('express-error-handler');
+
+var ep_get = require('./endpoints/get');
+
 const expressSession = require('express-session');//세션
 var app = express();
 app.set('port', process.env.PORT || 3000);//3000번 포트 개방
@@ -23,6 +26,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(cookieParser());
+/*
+app.use(function (req, res, next) {
+	//console.log(req, res);
+	next();
+});
+
+*/
 ///const MongoStore = require('connect-mongo')(session);
 
 
@@ -93,10 +103,15 @@ app.use(expressSession({
 }));// 저장할 정보에 대해서 어떻게 할지..
 
 
-// 여기부터 라우터
+// 여기부터 라우터r
+
 var router = express.Router();
 
+router.use('/api', ep_get);
 
+router.route('/').get(function (req, res, next) {
+	res.redirect('/views/index.html');
+})
 
 // 로그인 라우팅 함수 - 로그인 후 세션 저장함
 router.route('/process/login').post(function (req, res) {
@@ -110,7 +125,7 @@ router.route('/process/login').post(function (req, res) {
 		// 이미 로그인된 상태
 		console.log('이미 로그인되어 상품 페이지로 이동합니다.');
 
-		res.redirect('./views/index.html');//로그인 되면 보여줄 화면..
+		res.redirect('/views/index.html');//로그인 되면 보여줄 화면..
 	} else { //아직 로그인은 안했고 일단 확인해보는중
 		if (database) {
 			authUser(database, paramId, paramPassword, function (err, docs) {
@@ -118,14 +133,16 @@ router.route('/process/login').post(function (req, res) {
 
 				// 조회된 레코드가 있으면 성공 응답 전송//로그인 성공시
 				if (docs) {
-					console.dir(docs);
-					/*
+					//console.dir(docs);
+					console.log();
+					
 					req.session.user = {
-						id: paramId,
-						name: '소녀시대',
+						uid: docs[0]._id,
+						id: docs[0].id,
+						name: docs[0].name,
 						authorized: true
-					}//???//
-					*///이지역에서 쿠키생성 및 세션생성해야됨
+					};
+					///이지역에서 쿠키생성 및 세션생성해야됨
 					// 조회 결과에서 사용자 이름 확인
 					var username = docs[0].name;//사용자이름 받아둔거!!
 					//1. 쿠키생성
@@ -141,6 +158,8 @@ router.route('/process/login').post(function (req, res) {
 					// res.write('<div><p>사용자 이름 : ' + username + '</p></div>');
 					// res.write("<br><br><a href='/process/product'>상품 페이지로 이동하기</a>");
 					// res.end();//로그인 확인용 텍스트들
+					res.redirect('/views/index.html');//로그인 되면 보여줄 화면..
+					res.end();
 
 
 				} else {  // 조회된 레코드가 없는 경우 실패 응답 전송 //로그인 실패임

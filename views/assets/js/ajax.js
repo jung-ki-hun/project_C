@@ -6,9 +6,7 @@
  */
 function fetchPage(page)
 {
-	 
 	$.ajax({
-		
 		url: '/views/dashboard-2.html',
 	    cache:false,
 	    dataType: 'html',
