@@ -89,20 +89,20 @@
             this.createDonutChart('morris-donut-example', $donutData, ['#f0f1f4', '#6d60b0', '#009688']);
 
             var $stckedData  = [
-                { y: '초미세먼지', a: 45, b: 180},
-                { y: '미세먼지', a: 75,  b: 65},
+                { y: '초미세먼지', a: 15, b: 35, c: 75, d:76},
+                { y: '미세먼지', a: 30, b: 80, c: 150, d:151},
                 // { y: '2007', a: 100, b: 90},
                 // { y: '2008', a: 75,  b: 65},
                 // { y: '2009', a: 100, b: 90},
                 // { y: '2010', a: 75,  b: 65},
                 // { y: '2011', a: 50,  b: 40},
-                // { y: '2012', a: 75,  b: 65},
+                // { y: '2012', a: 75,  b: 65}, 
                 // { y: '2013', a: 50,  b: 40},
                 // { y: '2014', a: 75,  b: 65},
                 // { y: '2015', a: 100, b: 90},
                 // { y: '2016', a: 80, b: 65}
             ];
-            this.createStackedChart('morris-bar-stacked', $stckedData, 'y', ['a', 'b'], ['초미세먼지', '미세먼지'], ['#47b8c6','#e8e7e7']);
+            this.createStackedChart('morris-bar-stacked', $stckedData, 'y', ['a', 'b', 'c', 'd'], ['좋음', '보통', '나쁨','매우나쁨'], ['#369F36','#FFE641','#EB0000','#C71585']);
 
             //Peity pie
             $('.peity-pie').each(function() {
